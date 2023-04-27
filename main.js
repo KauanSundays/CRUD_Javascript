@@ -8,19 +8,46 @@ const closeModal = () => document.getElementById('modal')
 
 
 const tempClient = {
-    nome: "Fernando",
-    email: "fernando@gmail.com",
+    nome: "mudou",
+    email: "cquedsdasdasd@gmail.com",
     celular: "11987456321",
     cidade: "Holambra"
 }
 
 // CRUD
 
+
+// CREATE
+const getLocalStorage = () => JSON.parse(localStorage.getItem('db_client')) ?? []
+const setLocalStorage = (dbClient) => localStorage.setItem("db_client", JSON.stringify(dbClient))
+
 const createClient = (client) => {
-    localStorage.setItem("db_client", JSON.stringify(client))
+    const dbClient = getLocalStorage()
+    dbClient.push(client)
+    setLocalStorage(dbClient)
 }
 
-    // Eventos
+// READ
+const readClient = () => getLocalStorage()
+
+// UPDATE
+const updateClient = (index, client) => {
+    const dbClient = readClient()
+    dbClient[index] = client
+    setLocalStorage(dbClient)
+}
+
+// DELETE
+const deleteClient = (index) => {
+    const dbClient = readClient()
+    dbClient.splice(index, 1)
+    setLocalStorage(dbClient)
+}
+
+
+
+
+ // Eventos
 document.getElementById('cadastrarCliente')
     .addEventListener('click', openModal)
 
